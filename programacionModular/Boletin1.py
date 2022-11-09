@@ -1,21 +1,3 @@
-def conocer(comparador,lista):
-    mayor=0
-    menor=1001
-    suma=0
-    if comparador=="MAYOR":
-        for x in range(len(lista)):
-            if lista[x] > mayor:
-                mayor=lista[x]
-        return mayor
-    elif comparador=="MENOR":
-        for x in range(len(lista)):
-            if lista[x] < menor:
-                menor=lista[x]
-        return menor
-    elif comparador=="SUMA":
-        for x in (lista):
-            suma+=x
-        return suma
 from random import randint
 
 """1. Crea un programa que genere 100 números de forma aleatoria y que posteriormente
