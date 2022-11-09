@@ -134,6 +134,11 @@ Introduce el año de a fecha: 2009
 La fecha en formato largo es 15 de Marzo de 2009
 Debe validar los datos y ejecutarse hasta que se introduzca un día negativo"""
 
+def bisiesto(year):
+    if (year %4==0) and (year%100!=0 or year%400==0):
+        return True
+
+
 day=0
 month=0
 year=0
@@ -147,7 +152,7 @@ while day>-1:
             month=int(input("Introduzca mes entre 1 y 12 (Febrero no puede tener mas de 29 dias): "))
         while day>30 and month in(4,6,9,11):
             month=int(input("Introduzca mes entre 1 y 12 (El mes que has introducido no puede tener mas de 30 dias): "))
-    while year<1:
+    while year<1 or (day>28 and not bisiesto(year)):
         year=int(input("Introduzca año: "))
     months={1:"ENERO",2:"FEBRERO",3:"MARZO",4:"ABRIL",5:"MAYO",6:"JUNIO",7:"JULIO",8:"AGOSTO",9:"SEPTIEMBRE",10:"OCTUBRE",11:"NOVIEMBRE",12:"DICIEMBRE"}
     if day<0:
