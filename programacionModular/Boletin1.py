@@ -21,13 +21,13 @@ for i in range(100):
 def conocer(comparador):
     mayor=0
     suma=0
-    menor=1001
     if comparador=="MAYOR":
         for x in range(len(numeros)):
             if numeros[x] > mayor:
                 mayor=numeros[x]
         resultado=mayor
     elif comparador=="MENOR":
+        menor=conocer("MAYOR")
         for x in range(len(numeros)):
             if numeros[x] < menor:
                 menor=numeros[x]
