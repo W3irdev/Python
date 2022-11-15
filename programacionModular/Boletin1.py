@@ -79,33 +79,29 @@ numeros2=[]
 for i in range(10):
     numeros2.append(i)
 
-numeros2=[]
-for i in range(10):
-    numeros2.append(i)
-
-def desplazar(direccion,posicion):
-    posicion=posicion%10
+def desplazar(lista,direccion,posicion):
+    posicion=posicion%len(lista)
     desplazado=""
     if direccion=="D":
-        for x in numeros2:
+        for x in lista:
             d=x-posicion
             direccion=d
-            if x+1==len(numeros2):
-                desplazado+=str(numeros2[direccion])
+            if x+1==len(lista):
+                desplazado+=str(lista[direccion])
             else:
-                desplazado+=str(numeros2[direccion])+", " 
+                desplazado+=str(lista[direccion])+", " 
     elif direccion=="I":
-        for x in numeros2:
+        for x in lista:
             i=x-(10-posicion)
             direccion=i
-            if x+1==len(numeros2):
-                desplazado+=str(numeros2[direccion])
+            if x+1==len(lista):
+                desplazado+=str(lista[direccion])
             else:
-                desplazado+=str(numeros2[direccion])+", " 
+                desplazado+=str(lista[direccion])+", " 
         
     return desplazado
     
-print(desplazar("I",0))
+print(desplazar(numeros2,"I",156))
 
 
 """3. Realiza un programa que solicite la fecha como tres datos numéricos (día, mes y
@@ -117,8 +113,8 @@ La fecha en formato largo es 15 de Marzo de 2009
 Debe validar los datos y ejecutarse hasta que se introduzca un día negativo"""
 
 def bisiesto(year):
-    if (year %4==0) and (year%100!=0 or year%400==0):
-        return True
+   return (year %4==0) and (year%100!=0 or year%400==0)
+        
 
 
 day=0
@@ -143,6 +139,7 @@ while day>-1:
         print(f"La fecha en formato largo es {day} de {months[month]} de {year}")
     month=0
     year=0
+#____________________________________________________________________
 
 
 """4. Crea un programa que lea por teclado números de forma sucesiva y los guarde en
@@ -183,32 +180,41 @@ def invertir(lista):
 devuelva True si está ordenada o False en caso contrario.
 """
 
-#lista=[1,2,3,4,5,6,7,8]
 def estaOrdenada(lista):
     estado=True
+    salida=True
     #Ordenar Numeros
     for i in range(len(lista)-1):
         if lista[i]>lista[i+1]:
             estado=False
-    return estado
-#print(estaOrdenada(invertir(lista)))
+
+        if estado==False:
+            if lista[i]<lista[i+1]:
+                salida=False
+
+                
+
+    return salida
+print(estaOrdenada((lista)))
 
 """7. Escribir una función denominada encajan que indique si dos fichas de dominó
 encajan o no. Las fichas son recibidas en dos cadenas de texto con el siguiente
 formato
 [3,4] [2,5]"""
 
-pieza1=["5"," "]
-pieza2=["2","5"]
-def encajan(a,b):
+peti_piez1=input("Introduzca ficha 1: ")
+peti_piez2=input("Introduzca ficha 2: ")
+def encajan(pieza1,pieza2):
+    pieza1=[pieza1[0],pieza1[2]]
+    pieza2=[pieza2[0],pieza2[2]]
     encaja=""
-    if a[0]==b[0] or a[1]==b[1] or a[0]==b[1] or a[1]==b[0]:
+    if pieza1[0]==pieza2[0] or pieza1[1]==pieza2[1] or pieza1[0]==pieza2[1] or pieza1[1]==pieza2[0]:
         encaja="ENCAJAN"
     else:
         encaja="NO ENCAJAN"
     return encaja
 
-print(encajan(pieza1,pieza2))
+print(encajan(peti_piez1,peti_piez2))
 
 """8. Realiza un programa que añada números enteros a una lista hasta que se
 introduzca un número negativo. Haciendo uso de esta lista, elabora funciones que
@@ -217,12 +223,6 @@ a. una lista con todos los que sean primos.
 b. el sumatorio
 c. el promedio de los valores.
 d. una lista con el factorial de cada uno de esos números."""
-
-#numero=int(input("Ve metiendo numeros: "))
-#lista=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-while numero >-1:
-    lista.append(numero)
-    numero=int(input("Ve metiendo numeros: "))
 
 def comprobarPrimos(lista):
     primo=[]
@@ -252,22 +252,27 @@ def promedio(lista):
 
 def factorial(lista):
     factorial=1
-    factorizado=""
+    factorizado=[]
     for i in lista:
         for x in range(i,1,-1):
-            factorial+=i*x
-        if i==len(lista):
-            factorizado+=str(factorial)
-        else:
-            factorizado+=str(factorial)+", "
+            factorial=factorial*x
+
+        factorizado+=[factorial]
     return factorizado
+
+lista=[]
+numero=0
+while numero >-1:
+    numero=int(input("Ve metiendo numeros: "))
+    lista+=[numero]
+
 
 print(comprobarPrimos(lista))
 print(sumar(lista))
 print(promedio(lista))
 print(factorial(lista))
 
-""". Desarrolla un programa que a partir de una lista de números y un entero k, realice la
+"""9. Desarrolla un programa que a partir de una lista de números y un entero k, realice la
 llamada a tres funciones: a) para devolver una lista de números con los menores de
 k, b) otra con los mayores y c) otra con aquellos que son múltiplos de k."""
 
