@@ -344,7 +344,7 @@ def convertirBIN(numero):
 
     return conversion
 
-#print(convertirBIN(""))
+print(convertirBIN(""))
 
 """11. Escribe una función intersect que reciba dos listas y devuelva otra lista con los
 elementos que son comunes a ambas, sin repetir ninguno."""
@@ -353,11 +353,9 @@ lista1=[1,2,3,4,5,5,6,6,9,6,9,10,10]
 lista2=[4,5,5,6,6,7,8,6,9,9,10,10]
 def intersect(lista1,lista2):
     common=[]
-    added=[]
     for i in lista1:
-        if i in lista2 and i not in added:
+        if i in lista2 and i not in common:
             common.append(i)
-            added.append(i)
     return common
 #print(intersect(lista1,lista2))
 
@@ -375,7 +373,7 @@ def unionListas(lista1,lista2):
 
 
 
-#print(unionListas(lista1,lista2))
+print(unionListas(lista1,lista2))
 
 """13. Escribe una función que, dada una lista de nombres y una letra, devuelva una lista
 con todos los nombres que empiezan por dicha letra. Debe validar los datos."""
