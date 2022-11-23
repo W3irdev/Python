@@ -3,11 +3,18 @@ returns the factorial for that number. If the number is negative the method shou
 return None."""
 
 def computeFactorial(number):
-    fact=number
-    while number > 1:
-        number-=1
-        fact=fact*number
-    return fact
+    if number<=0:
+        fact=None
+    else:
+        fact=number
+        while number > 1:
+            number-=1
+            fact=fact*number
+        return fact
+
+if __name__=='__main__':
+
+    print(computeFactorial(-1))
 
 """2. Design a method called isLeapYear that receives a number and returns False for
 common years and True for leap years. You may know that a year is considered to
@@ -55,12 +62,12 @@ d = (day + y + y/4 - y/100 + y/400 + (31*m)/12) mod 7"""
 
 def getDayOfWeek(day,month,year):
     daysmonth=[31,28,31,30,31,30,31,31,30,31,30,31]
-    dayinweek={5:"Domingo",6:"Lunes",4:"Martes",5:"Miercoles",2:"Jueves",3:"Viernes",4:"Sabado"}
+    dayinweek={0:"Domingo",1:"Lunes",2:"Martes",3:"Miercoles",4:"Jueves",5:"Viernes",6:"Sabado"}
     try:
         if month<1 or year<1:
             print("Introduzca valores validos")
         else:
-            a = (14 - month)/12
+            a = (14 - month)//12
             y = year - a
             m = month + 12 * a - 2
             d= int(((day + y + y//4 - y//100 + y//400 + (31*m)//12)%7))
@@ -68,7 +75,9 @@ def getDayOfWeek(day,month,year):
     except:
         print("Valores invalidos")
     return d
-print(getDayOfWeek(16,11,2022))
+
+if __name__=='__main__':   
+    print(getDayOfWeek(16,12,2020))
 
 """5. Design a method called powerIt that receives two integers and raises the first
 number to the second. You may use the product or recursion and check the values. If
@@ -107,7 +116,9 @@ def getNumberOfDigits(number):
     txt=str(number).upper()
     contador=0
     try:
-        if "." in txt:
+        if txt[-1] == ".":
+            digitos=None
+        elif "." in txt:
             digitos=len(txt)-1
         elif "." in txt and "-" in txt:
             digitos=(len(txt))-2
@@ -128,8 +139,8 @@ def getNumberOfDigits(number):
 
     return digitos
 
-
-print(getNumberOfDigits(""))
+if __name__=='__main__':
+    print(getNumberOfDigits("659.21"))
 
 """7. Design a method called isPrime that receives one integer positive number greater
 than 0 as parameter. The method should return True if the number is prime or False if
@@ -147,8 +158,9 @@ def isPrime(number):
     else:
         prime="Introduce un numero mayor a 0"
     return prime
-    
-print(isPrime(2))
+
+if __name__=='__main__':
+    print(isPrime(2))
 
 
 """8. Design a method called solveSecondOrderEquation that receives three integer
@@ -167,8 +179,8 @@ def solveSecondOrderEquation(a,b,c):
 
     return solucion
 
-
-print(solveSecondOrderEquation(True,"2",6))
+if __name__=='__main__':
+    print(solveSecondOrderEquation(1,7,5))
 
 """9. Design a method called getPrimeDivisors that receives a positive number as a
 parameter and returns a list containing its prime divisors. If the parameter is not valid
@@ -182,7 +194,8 @@ def getPrimeDivisors(a):
 
     return primes
 
-print(getPrimeDivisors(9999999))
+if __name__=='__main__':
+    print(getPrimeDivisors(9999999))
 
 
 """10. Design a method called isFriendNumber that receives two positive numbers and
@@ -201,5 +214,6 @@ def isFriendNumber(a,b):
     else:
         isFriend=False
     return isFriend
-    
-print(isFriendNumber(284,220))
+
+if __name__=='__main__': 
+    print(isFriendNumber(284,220))
