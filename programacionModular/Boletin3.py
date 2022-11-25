@@ -78,43 +78,21 @@ print(palindrome("Dabale arroz a la zorra el abad"))
 la cadena es “shybaoxlna” y la palabra que queremos buscar es “hola”, entonces si se 
 encontrará y deberá devolver True, en caso contrario deberá devolver False."""
 
-"""def encontrarPalabra(palabra,texto):
+
+def encontrarPalabra(palabra,texto):
     buscar=""
-    for c in palabra:
-        if c in texto:
+    posicion=0
+    contiene=False
+    for c in texto:
+        if c == palabra[posicion]:
             buscar+=c
-    return buscar
-
-print(encontrarPalabra("hola","shybaoxlna"))"""
-
-"""def encontrarPalabra(palabra,texto):
-    buscar=""
-    cadenaMutable=[]
-
-    for i in range(len(texto)):
-        cadenaMutable+=texto[i]
+            posicion+=1
+    if buscar==palabra:
+        contiene=True
     
-    for c in range (len(cadenaMutable)):
-        if cadenaMutable[c] in palabra:
-            buscar+=cadenaMutable[c]
-            cadenaMutable[c]="."
-    
-    return buscar
+    return contiene
 
-print(encontrarPalabra("hola","shybaoxlna"))"""
-
-"""def encontrarPalabra(palabra,texto):
-    buscar=""
-    cadenaMutable=texto
-    
-    for c in range(len(texto)):
-        if texto[c]==palabra[c]:
-            buscar+=palabra[c]
-
-    
-    return buscar"""
-
-"""print(encontrarPalabra("hola","shybaoxlna"))"""
+print(encontrarPalabra("hola","shybaoxlna"))
 
 """7. Diseñar una función que reciba como parámetro tres cadenas, la primera será una frase y 
 deberá buscar si existe la palabra que recibe como segundo parámetro y reemplazarla por la 
@@ -123,25 +101,29 @@ tercera."""
 def reemplazarPalabra(texto,palabra,sustituto):
     nuevafrase=""
     es=0
-    noes=0
+    desplaza=0
+    control=0
     if palabra in texto:
-        for c in range (len(texto)):
+        c=0
+        while c < len(texto) and control==0:
             if texto[c]==palabra[0]:
-                while es < len(palabra) and noes==0:
-                    if texto[c+es]==palabra[es]:
+                while es < len(palabra):
+                    if texto[c+desplaza]==palabra[es]:
                         es+=1
-                    else:
-                        noes+=1
-            elif es==len(palabra) and noes==0:
-                nuevafrase=nuevafrase + sustituto + " "
-                es=-1
-                noes=1
+                        desplaza+=1
+                if es == len(palabra) and texto[c+len(palabra)]==" ":
+                    nuevafrase=nuevafrase + sustituto
+                    c+=len(palabra)
+                    es=0
+                else:
+                    nuevafrase="La palabra a sustituir no se encuentra"
+                    es=0
+                    c+=1
+                    control=1
             else:
                 nuevafrase+=texto[c]
-                    
-
+                c+=1
     return nuevafrase
-
 
 print(reemplazarPalabra("Homer fue a beber cerveza", "beber", "comprar"))
 
@@ -194,4 +176,4 @@ def contarPalabras(frase):
 
     return palabras
 
-print(contarPalabras("  Ipsum Lorem  "))
+print(contarPalabras(" Ipsum Lorem  "))
