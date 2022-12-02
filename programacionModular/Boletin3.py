@@ -111,6 +111,9 @@ def reemplazarPalabra(texto,palabra,sustituto):
                     if texto[c+desplaza]==palabra[es]:
                         es+=1
                         desplaza+=1
+                    else:
+                        es=0
+                        desplaza=0
                 if es == len(palabra) and texto[c+len(palabra)]==" ":
                     nuevafrase=nuevafrase + sustituto
                     c+=len(palabra)
