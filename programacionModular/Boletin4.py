@@ -120,8 +120,8 @@ def main():
 """if __name__=="__main__":
     
     print(menu(3))
-    main()"""
-        
+    main()
+        """
 
     
 #CALCULO
@@ -219,3 +219,74 @@ def leer_fraccion(numerador,denominador):
 
 
 assert(leer_fraccion(16,6)==(8,3))
+
+def escribir_fraccion(numerador,denominador):
+    fraccion=0
+    if denominador==1:
+        print(numerador)
+    else:
+        print(f"{numerador}/{denominador}")
+
+escribir_fraccion(2,5)
+
+
+def simplificar_fraccion(numerador,denominador):
+    numeradorsimp=numerador//maximo_comun_divisor(numerador,denominador)
+    denominadorsimp=denominador//maximo_comun_divisor(numerador,denominador)
+    return numeradorsimp, denominadorsimp
+
+def sumar_fraccion(numerador1,denominador1,numerador2,denominador2):
+    numerador=(numerador1*denominador2)+(denominador1*numerador2)
+    denominador=denominador1*denominador2
+    return simplificar_fraccion(numerador,denominador)
+
+def restar_fraccion(numerador1,denominador1,numerador2,denominador2):
+    numerador=(numerador1*denominador2)-(denominador1*numerador2)
+    denominador=denominador1*denominador2
+    return simplificar_fraccion(numerador,denominador)   
+
+def multiplicar_fraccion(numerador1,denominador1,numerador2,denominador2):
+    numerador=numerador1*denominador1
+    denominador=denominador1*denominador2
+    return simplificar_fraccion(numerador,denominador)
+
+def dividir_fraccion(numerador1,denominador1,numerador2,denominador2):
+    numerador=numerador1*denominador2
+    denominador=numerador2*denominador1
+    return simplificar_fraccion(numerador,denominador)
+
+"""6. Crear un programa que utilizando las funciones anteriores muestre el siguiente
+menú:
+a. Sumar dos fracciones: En esta opción se piden dos fracciones y se muestra el
+resultado.
+b. Restar dos fracciones: En esta opción se piden dos fracciones y se muestra la
+resta.
+c. Multiplicar dos fracciones: En esta opción se piden dos fracciones y se muestra el
+producto.
+d. Dividir dos fracciones: En esta opción se piden dos fracciones y se muestra la
+cociente.
+e. Salir"""
+
+opcion=""
+pantalla="""
+a. Sumar dos fracciones.
+b. Restar dos pracciones.
+c. Multiplicar dos fracciones.
+d. Dividir dos fracciones.
+e. Salir"""
+while opcion != "e":
+    print(pantalla)
+
+    opcion=input("Introduzca una opcion: ").lower()
+
+    if opcion=="a":
+        print(sumar_fraccion(int(input("Introduzca numerador1: ")),int(input("Introduzca denominador1: ")),int(input("Introduzca numerador2: ")),int(input("Introduzca denominador2: "))))
+    elif opcion=="b":
+        print(restar_fraccion(int(input("Introduzca numerador1: ")),int(input("Introduzca denominador1: ")),int(input("Introduzca numerador2: ")),int(input("Introduzca denominador2: "))))
+    elif opcion=="c":
+        print(multiplicar_fraccion(int(input("Introduzca numerador1: ")),int(input("Introduzca denominador1: ")),int(input("Introduzca numerador2: ")),int(input("Introduzca denominador2: "))))
+    elif opcion=="d":
+        print(dividir_fraccion(int(input("Introduzca numerador1: ")),int(input("Introduzca denominador1: ")),int(input("Introduzca numerador2: ")),int(input("Introduzca denominador2: "))))
+    else:
+        print("\nIntroduzca una opcion del menu")
+
