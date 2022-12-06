@@ -13,7 +13,7 @@ menu="""
 baseCoches={"1234AAA":"DIESEL"}
 basePuntos={"1234AAA":0}
 baseConsumo={"1234AAA":0}
-capacidad1, capacidad2, capacidad3, capacidad4=5000, 5000, 5000, 5000
+capacidad1, capacidad2, capacidad3, capacidad4=5000, 5000, 5000, 4500
 distribuido1, distribuido2, distribuido3, distribuido4=0, 0, 0, 0
 precio_diesel, precio_gasolina=0, 0
 while precio_diesel<1 or precio_gasolina<1:
@@ -30,22 +30,28 @@ def registrar_coche(matricula,baseCoches=baseCoches,basePuntos=basePuntos,baseCo
     basePuntos[matricula]=0
     baseConsumo[matricula]=0
 
-def llenar_surtidor(surtidor,cantidad, tanque1=capacidad1, tanque2=capacidad2,tanque3=capacidad3,tanque4=capacidad4):
+def llenar_surtidor(surtidor,cantidad,tanque1=0,tanque2=0,tanque3=0,tanque4=0):
+    total=0
     while cantidad<0 or cantidad > 5000:
         cantidad=int(input("Introduce una cantidad entre 0 y 5000: "))
     while surtidor<0 or surtidor > 4:
         surtidor=int(input("Elige surtidor correcto, 1, 2, 3 o 4: "))
     if surtidor==1 and tanque1+cantidad<=5000:
         tanque1+=cantidad
+        total=tanque1
     elif surtidor==2 and tanque2+cantidad<=5000:
         tanque2+=cantidad
+        total=tanque2
     elif surtidor==3 and tanque3+cantidad<=5000:
         tanque3+=cantidad
+        total=tanque3
     elif surtidor==4 and tanque4+cantidad<=5000:
         tanque4+=cantidad
+        total=tanque4
     else:
         print("El tanque excede la capacidad maxima")
-
+    return total
+        
 def comprobar_matricula(matricula):
     while matricula[:4]not in "1234567890" or matricula[-3:].upper() in "1234567890!·$%&/()=?¿Çç*+^`¨´´';,.-_}{][|@#\ºª¬ ":
         matricula=input("La matricula debe ser XXXXAAA: ")
@@ -81,7 +87,15 @@ print(menu)
 while opcion!=8:
     opcion=int(input("Introduce opcion: "))
     if opcion==1:
-        llenar_surtidor(int(input("¿Que surtidor va a rellenar?")), int(input("Introduce cantidad a rellenar: ")))
+        surtidor=int(input("¿Que surtidor va a rellenar?"))
+        if surtidor==1:
+            capacidad1=llenar_surtidor(1, int(input("Introduce cantidad a rellenar: ")),capacidad1)
+        elif surtidor==2:
+            capacidad2=llenar_surtidor(2, int(input("Introduce cantidad a rellenar: ")),0,capacidad2)
+        elif surtidor==3:
+            capacidad3=llenar_surtidor(3, int(input("Introduce cantidad a rellenar: ")),0,0,capacidad3)
+        elif surtidor==4:
+            capacidad4=llenar_surtidor(4, int(input("Introduce cantidad a rellenar: ")),0,0,0,capacidad4)
     elif opcion==2:
         matricula=comprobar_matricula(input("Introduce matricula en formato XXXXAAAA: "))
         if matricula not in baseCoches:
