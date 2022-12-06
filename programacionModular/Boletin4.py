@@ -117,11 +117,11 @@ def main():
         print("Introduce 3 para ver menu")
         main()
 
-"""if __name__=="__main__":
+if __name__=="__main__":
     
     print(menu(3))
     main()
-        """
+        
 
     
 #CALCULO
@@ -235,6 +235,8 @@ def simplificar_fraccion(numerador,denominador):
     denominadorsimp=denominador//maximo_comun_divisor(numerador,denominador)
     return numeradorsimp, denominadorsimp
 
+assert(simplificar_fraccion(8,4)==(2,1))
+
 def sumar_fraccion(numerador1,denominador1,numerador2,denominador2):
     numerador=(numerador1*denominador2)+(denominador1*numerador2)
     denominador=denominador1*denominador2
@@ -290,3 +292,403 @@ while opcion != "e":
     else:
         print("\nIntroduzca una opcion del menu")
 
+"""Figuras:
+1. Define una función que calcule el área de un círculo dado su radio.
+2. Defina una función que dado el radio de un círculo devuelva su longitud.
+3. Función tal que dadas las coordenadas de dos puntos en el plano devuelve su
+distancia euclídea. Un punto en el plano tiene dos coordenadas (abscisa y
+ordenada), por lo tanto, la entrada a esta función son cuatro valores reales.
+4. Función tal que dadas las coordenadas de un triángulo en el plano, nos devuelve
+su perímetro.
+5. Haciendo uso de la función anterior diseña otra que calcule su área.
+"""
+
+def calcular_area_circulo(radio):
+    PI=3.1416
+    return f"{PI*(radio**2):.2f}"
+
+def longitud_circulo(radio):
+    PI=3.1416
+    return f"{PI*(radio*2):.2f}"
+
+def distancia_euclidea(x1,y1,x2,y2):
+    return f"{(((x2-x1)**2)+((y2-y1)**2))**0.5:.2f}"
+
+def perimetro_triangulo(x1,y1,x2,y2,x3,y3):
+    return f"{((((x2-x1)**2)+((y2-y1)**2))**0.5)+((((x3-x2)**2)+((y3-y2)**2))**0.5)+((((x3-x1)**2)+((y3-y1)**2))**0.5):.2f}"
+
+
+def area_triangulo(x1,y1,x2,y2,x3,y3):
+    return f"{(((((x2-x1)**2)+((y2-y1)**2))**0.5)+((((x3-x2)**2)+((y3-y2)**2))**0.5)+((((x3-x1)**2)+((y3-y1)**2))**0.5))*0.5:.2f}"
+
+
+"""Fechas:
+1. Función que dado un instante (horas, minutos y segundos) devuelva el número
+de segundos transcurridos desde el inicio de un día hasta ese instante.
+2. Crea una función que devuelva la diferencia en segundos entre dos instantes de
+tiempo del mismo día. Recibirá como parámetros seis valores, hora, minuto y
+segundo de cada uno de los instantes.
+3. Write a Python program to convert seconds to day, hour, minutes and seconds.
+4. Write a Python program to calculate the number of days between two dates.
+5. Write a Python program to print the calendar of a given month and year. If you
+feel confident enough, extend it to cover a complete year (See annex).
+"""
+
+def calcular_segundos(horas,minutos,segundos):
+    if horas > 24 or minutos > 60 or segundos>60:
+        print("Introduce horario valido")
+    else:
+        return ((horas*60)*60)+(minutos*60)+segundos
+
+assert(calcular_segundos(2,0,0)==7200)
+
+def diferencia_dia(horas1,minutos1,segundos1,horas2,minutos2,segundos2):
+    instante1=calcular_segundos(horas1,minutos1,segundos1)
+    instante2=calcular_segundos(horas2,minutos2,segundos2)
+    return instante1-instante2
+
+assert(diferencia_dia(12,12,12,12,12,12)==0)
+assert(diferencia_dia(13,12,12,12,12,12)==3600)
+
+def converetidor_horario(segundos):
+
+    dias=int((segundos//60)//60)//24
+    horas=int((segundos//60)//60)%24
+    minutos=int(segundos//60)%60
+    segundos=int(segundos)%120
+
+    return dias, horas, minutos, segundos
+assert(converetidor_horario(118560)==(1,8,56,0))
+
+def bisiesto(year):
+    if (year %4==0) and (year%100!=0 or year%400==0):
+        return True
+    else:
+        return False
+
+def dias_pasados(dia,mes,year): #Ejercicio realizado en un boletin anterior
+    try:
+        meses=1
+        meslargo=[3,5,7,8,10,12]
+        totaldias=0
+        totaltranscurrido=0
+        if (dia >31 or dia < 1) or (mes>12 or mes<1) or (dia>29 and mes==2) or (dia==29 and bisiesto(year)==False):
+            print("Introduzca una fecha correcta porfavor")
+            totaltranscurrido=False
+        else:
+
+            if mes==1:
+                totaltranscurrido=dia
+            elif bisiesto(year)==True:
+                while meses < mes:
+                    if meses==2:
+                        totaldias+=29
+                    elif meses in meslargo:
+                        totaldias+=31
+                    else:
+                        totaldias+=30
+                    meses+=1
+                totaltranscurrido=(totaldias)+(dia)+1
+            else:
+                while meses < mes:
+                    if meses==2:
+                        totaldias+=28
+                    elif meses in meslargo:
+                        totaldias+=31
+                    else:
+                        totaldias+=30
+                    meses+=1
+                totaltranscurrido=(totaldias)+(dia)+1
+
+    except:
+        print("Introduzca valores en formato dd-mm-yyyy")
+    return totaltranscurrido
+
+def dias_entre_fechas(dia1,mes1,year1,dia2,mes2,year2):
+    years=0
+    if year1!=year2:
+        years=abs(year1-year2)*365
+    return abs(dias_pasados(dia1,mes1,year1)-dias_pasados(dia2,mes2,year2))+years
+
+assert(dias_entre_fechas(24,2,2002,20,2,2002)==4)
+
+def getDayOfWeek(day,month,year):
+    daysmonth=[31,28,31,30,31,30,31,31,30,31,30,31]
+    dayinweek={0:"Domingo",1:"Lunes",2:"Martes",3:"Miercoles",4:"Jueves",5:"Viernes",6:"Sabado"}
+    try:
+        if month<1 or year<1:
+            print("Introduzca valores validos")
+        else:
+            a = (14 - month)//12
+            y = year - a
+            m = month + 12 * a - 2
+            d= int(((day + y + y//4 - y//100 + y//400 + (31*m)//12)%7))
+            d=dayinweek[d]
+    except:
+        print("Valores invalidos")
+    return d
+
+def calendar(month,year):
+    calendario=""
+    day=getDayOfWeek(1,month,year)
+    if day=="Lunes" and month==2 and bisiesto(year)==False:
+        calendario="""
+        L    M    X    J    V    S    D
+        1    2    3    4    5    6    7
+        8    9    10   11   12   13   14
+        15   16   17   18   19   20   21
+        22   23   24   25   26   27   28
+        """        
+    elif day=="Martes" and month==2 and bisiesto(year)==False:
+        calendario="""
+        L    M    X    J    V    S    D
+             1    2    3    4    5    6
+        7    8    9    10   11   12   13
+        14   15   16   17   18   19   20
+        21   22   23   24   25   26   27
+        28 
+        """
+    elif day=="Miercoles" and month==2 and bisiesto(year)==False:
+        calendario="""
+        L    M    X    J    V    S    D
+                  1    2    3    4    5
+        6    7    8    9    10   11   12
+        13   14   15   16   17   18   19
+        20   21   22   23   24   25   26
+        27   28 
+        """
+    elif day=="Jueves" and month==2 and bisiesto(year)==False:
+        calendario="""
+        L    M    X    J    V    S    D
+                       1    2    3    4
+        5    6    7    8    9    10   11
+        12   13   14   15   16   17   18
+        19   20   21   22   23   24   25
+        26   27   28     
+        """     
+    elif day=="Viernes" and month==2 and bisiesto(year)==False:
+        calendario="""
+        L    M    X    J    V    S    D
+                            1    2    3
+        4    5    6    7    8    9    10
+        11   12   13   14   15   16   17
+        18   19   20   21   22   23   24
+        25   26   27   28 
+        """             
+    elif day=='Sabado' and month==2 and bisiesto(year)==False:
+        calendario="""
+        L    M    X    J    V    S    D
+                                 1    2
+        3    4    5    6    7    8    9
+        10   11   12   13   14   15   16
+        17   18   19   20   21   22   23
+        24   25   26   27   28 
+     
+        """
+    elif day=="Domingo" and month==2 and bisiesto(year)==False:
+        calendario="""
+        L    M    X    J    V    S    D
+                                      1
+        2    3    4    5    6    7    8
+        9    10   11   12   13   14   15
+        16   17   18   19   20   21   22
+        23   24   25   26   27   28   
+        """
+    elif day=="Lunes" and month==2 and bisiesto(year):
+        calendario="""
+        L    M    X    J    V    S    D
+        1    2    3    4    5    6    7
+        8    9    10   11   12   13   14
+        15   16   17   18   19   20   21
+        22   23   24   25   26   27   28
+        29
+        """        
+    elif day=="Martes" and month==2 and bisiesto(year):
+        calendario="""
+        L    M    X    J    V    S    D
+             1    2    3    4    5    6
+        7    8    9    10   11   12   13
+        14   15   16   17   18   19   20
+        21   22   23   24   25   26   27
+        28   29
+        """
+    elif day=="Miercoles" and month==2 and bisiesto(year):
+        calendario="""
+        L    M    X    J    V    S    D
+                  1    2    3    4    5
+        6    7    8    9    10   11   12
+        13   14   15   16   17   18   19
+        20   21   22   23   24   25   26
+        27   28   29
+        """
+    elif day=="Jueves" and month==2 and bisiesto(year):
+        calendario="""
+        L    M    X    J    V    S    D
+                       1    2    3    4
+        5    6    7    8    9    10   11
+        12   13   14   15   16   17   18
+        19   20   21   22   23   24   25
+        26   27   28   29  
+        """     
+    elif day=="Viernes" and month==2 and bisiesto(year):
+        calendario="""
+        L    M    X    J    V    S    D
+                            1    2    3
+        4    5    6    7    8    9    10
+        11   12   13   14   15   16   17
+        18   19   20   21   22   23   24
+        25   26   27   28   29
+        """             
+    elif day=='Sabado' and month==2 and bisiesto(year):
+        calendario="""
+        L    M    X    J    V    S    D
+                                 1    2
+        3    4    5    6    7    8    9
+        10   11   12   13   14   15   16
+        17   18   19   20   21   22   23
+        24   25   26   27   28   29
+     
+        """
+    elif day=="Domingo" and month==2 and bisiesto(year):
+        calendario="""
+        L    M    X    J    V    S    D
+                                      1
+        2    3    4    5    6    7    8
+        9    10   11   12   13   14   15
+        16   17   18   19   20   21   22
+        23   24   25   26   27   28   29  
+        """
+    elif day=="Lunes" and (str(month) in "13578" or month == 10 or month==12):
+        calendario="""
+        L    M    X    J    V    S    D
+        1    2    3    4    5    6    7
+        8    9    10   11   12   13   14
+        15   16   17   18   19   20   21
+        22   23   24   25   26   27   28
+        29   30   31
+        """
+    elif day=="Martes" and (str(month) in "13578" or month == 10 or month==12):
+        calendario="""
+        L    M    X    J    V    S    D
+             1    2    3    4    5    6
+        7    8    9    10   11   12   13
+        14   15   16   17   18   19   20
+        21   22   23   24   25   26   27
+        28   29   30   31
+        """
+    elif day=="Miercoles" and (str(month) in "13578" or month == 10 or month==12):
+        calendario="""
+        L    M    X    J    V    S    D
+                  1    2    3    4    5
+        6    7    8    9    10   11   12
+        13   14   15   16   17   18   19
+        20   21   22   23   24   25   26
+        27   28   29   30   31
+        """
+    elif day=="Jueves" and (str(month) in "13578" or month == 10 or month==12):
+        calendario="""
+        L    M    X    J    V    S    D
+                       1    2    3    4
+        5    6    7    8    9    10   11
+        12   13   14   15   16   17   18
+        19   20   21   22   23   24   25
+        26   27   28   29   30   31    
+        """     
+    elif day=="Viernes" and (str(month) in "13578" or month == 10 or month==12):
+        calendario="""
+        L    M    X    J    V    S    D
+                            1    2    3
+        4    5    6    7    8    9    10
+        11   12   13   14   15   16   17
+        18   19   20   21   22   23   24
+        25   26   27   28   29   30   31
+        """             
+    elif day=='Sabado' and (str(month) in "13578" or month == 10 or month==12):
+        calendario="""
+        L    M    X    J    V    S    D
+                                 1    2
+        3    4    5    6    7    8    9
+        10   11   12   13   14   15   16
+        17   18   19   20   21   22   23
+        24   25   26   27   28   29   30
+        31
+        """
+    elif day=="Domingo" and (str(month) in "13578" or month == 10 or month==12):
+        calendario="""
+        L    M    X    J    V    S    D
+                                      1
+        2    3    4    5    6    7    8
+        9    10   11   12   13   14   15
+        16   17   18   19   20   21   22
+        23   24   25   26   27   28   29
+        30   31
+        """             
+    elif day=="Lunes":
+        calendario="""
+        L    M    X    J    V    S    D
+        1    2    3    4    5    6    7
+        8    9    10   11   12   13   14
+        15   16   17   18   19   20   21
+        22   23   24   25   26   27   28
+        29   30
+        """
+    elif day=="Martes":
+        calendario="""
+        L    M    X    J    V    S    D
+             1    2    3    4    5    6
+        7    8    9    10   11   12   13
+        14   15   16   17   18   19   20
+        21   22   23   24   25   26   27
+        28   29   30
+        """
+    elif day=="Miercoles":
+        calendario="""
+        L    M    X    J    V    S    D
+                  1    2    3    4    5
+        6    7    8    9    10   11   12
+        13   14   15   16   17   18   19
+        20   21   22   23   24   25   26
+        27   28   29   30
+        """
+    elif day=="Jueves":
+        calendario="""
+        L    M    X    J    V    S    D
+                       1    2    3    4
+        5    6    7    8    9    10   11
+        12   13   14   15   16   17   18
+        19   20   21   22   23   24   25
+        26   27   28   29   30    
+        """     
+    elif day=="Viernes":
+        calendario="""
+        L    M    X    J    V    S    D
+                            1    2    3
+        4    5    6    7    8    9    10
+        11   12   13   14   15   16   17
+        18   19   20   21   22   23   24
+        25   26   27   28   29   30
+        """             
+    elif day=='Sabado':
+        calendario="""
+        L    M    X    J    V    S    D
+                                 1    2
+        3    4    5    6    7    8    9
+        10   11   12   13   14   15   16
+        17   18   19   20   21   22   23
+        24   25   26   27   28   29   30
+     
+        """
+    elif day=="Domingo":
+        calendario="""
+        L    M    X    J    V    S    D
+                                      1
+        2    3    4    5    6    7    8
+        9    10   11   12   13   14   15
+        16   17   18   19   20   21   22
+        23   24   25   26   27   28   29
+        30
+        """             
+    return calendario        
+
+
+print(calendar(3,2001))
